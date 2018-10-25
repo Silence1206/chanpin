@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzx.course.product.dao.ProductTypeMapper">
+    <resultMap id="ProductTypeResultMap" type="com.zzx.course.product.model.ProductType" >
+        <id column="product_type_id" property="productTypeId" jdbcType="BIGINT" />
+        <result column="product_type_name" property="productTypeName" jdbcType="VARCHAR" />
+        <result column="product_type_desc" property="productTypeDesc" jdbcType="VARCHAR" />
+        <result column="created_by_user_login" property="createdByUserLogin" jdbcType="BIGINT" />
+        <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+        <result column="last_updated_by_user_login" property="lastUpdatedByUserLogin" jdbcType="BIGINT" />
+        <result column="last_updated_time" property="lastUpdatedTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <select id="findProductTypeById" parameterType="Integer" resultMap="ProductTypeResultMap">
+        select * from product_type where product_type_id = #{productTypeId}
+    </select>
+
+    <select id="findAllProductTypes" resultMap="ProductTypeResultMap">
+        select * from product_type
+    </select>
+
+    <insert id="addProductType" parameterType="productType">
+        INSERT INTO product_type(product_type_id, product_type_name, product_type_desc, created_by_user_login, created_time, last_updated_by_user_login, last_updated_time) VALUES
+        (#{productTypeId}, #{productTypeName}, #{productTypeDesc}, #{createdByUserLogin}, #{createdTime}, #{lastUpdatedByUserLogin}, #{lastUpdatedTime})
+    </insert>
+
+    <delete id="deleteProductType" parameterType="Integer">
+        delete from product_type where product_type_id = #{productTypeId}
+    </delete>
+
+    <update id="updateProductType" parameterType="productType">
+        update product_type set product_type_name = #{productTypeName}, product_type_desc = #{productTypeDesc}, last_updated_by_user_login = #{lastUpdatedByUserLogin}, last_updated_time = #{lastUpdatedTime}where product_type_id = #{productTypeId}
+    </update>
+</mapper>

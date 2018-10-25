@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzx.course.product.dao.ProductMapper">
+    <resultMap id="ProductResultMap" type="com.zzx.course.product.model.Product" >
+        <id column="product_id" property="productId" jdbcType="INTEGER" />
+        <result column="product_name" property="productName" jdbcType="VARCHAR" />
+        <result column="product_class" property="productClass" jdbcType="INTEGER" />
+        <result column="product_type" property="productType" jdbcType="INTEGER" />
+        <result column="product_manufacturer" property="productManufacturer" jdbcType="VARCHAR" />
+        <result column="product_date" property="productDate" jdbcType="TIMESTAMP" />
+        <result column="product_price" property="productPrice" jdbcType="DOUBLE" />
+        <result column="product_desc" property="productDesc" jdbcType="VARCHAR" />
+        <result column="created_by_user_login" property="createdByUserLogin" jdbcType="INTEGER" />
+        <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+        <result column="last_updated_by_user_login" property="lastUpdatedByUserLogin" jdbcType="INTEGER" />
+        <result column="last_updated_time" property="lastUpdatedTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <select id="findProductById" parameterType="Integer" resultMap="ProductResultMap">
+        select * from product where product_id = #{productId}
+    </select>
+
+    <select id="findAllProducts" resultMap="ProductResultMap">
+        select * from product
+    </select>
+
+    <insert id="addProduct" parameterType="product">
+        INSERT INTO product(product_id, product_name, product_class, product_type, product_manufacturer, product_date, product_price, product_desc, created_by_user_login, created_time, last_updated_by_user_login, last_updated_time) VALUES
+        (#{productId}, #{productName}, #{productClass}, #{productType}, #{productManufacturer}, #{productDate}, #{productPrice}, #{productDesc}, #{createdByUserLogin}, #{createdTime}, #{lastUpdatedByUserLogin}, #{lastUpdatedTime})
+    </insert>
+
+    <delete id="deleteProduct" parameterType="Integer">
+        delete from product where product_id = #{id}
+    </delete>
+
+    <update id="updateProduct" parameterType="product">
+        update product set product_name=#{productName}, product_class=#{productClass}, product_type=#{productType}, product_manufacturer=#{productManufacturer}, product_date=#{productDate}, product_price=#{productPrice}, product_desc=#{productDesc}, last_updated_by_user_login=#{lastUpdatedByUserLogin}, last_updated_time=#{lastUpdatedTime} where product_id=#{productId}
+    </update>
+</mapper>
